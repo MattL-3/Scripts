@@ -1,0 +1,24 @@
+#!/system/bin/sh
+
+USB_PATH="/mnt/usb_storage"
+APK_NAME="YourApp.apk"
+APK_PATH="$USB_PATH/$APK_NAME"
+PACKAGE_NAME="com.example.kiosk"
+LAUNCHER_ACTIVITY="com.example.kiosk.MainActivity"
+
+echo "[INFO] Starting installation script..."
+
+if [ -f "$APK_PATH" ]; then
+    echo "[INFO] APK found. Installing..."
+    pm install -r "$APK_PATH"
+
+    if [ $? -eq 0 ]; then
+        echo "[SUCCESS] APK installed or updated."
+        echo "[INFO] Setting $PACKAGE_NAME as the default launcher..."
+        cmd package set-home-activity "$PACKAGE_NAME/$LAUNCHER_ACTIVITY"
+    else
+        echo "[ERROR] APK installation failed."
+    fi
+else
+    echo "[ERROR] APK not found at $APK_PATH"
+fi
