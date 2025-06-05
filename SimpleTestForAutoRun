@@ -1,0 +1,8 @@
+echo "Can I install apps?"
+pm install --help
+
+echo "Where is my USB?"
+ls /mnt/usb* /storage/usb* 2>/dev/null
+
+echo "Is my APK there?"
+ls /*/YourApp.apk 2>/dev/null
